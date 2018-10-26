@@ -10,4 +10,7 @@ import java.util.List;
 public interface ResourceRepository extends GraphRepository<Resource> {
     @Query("MATCH (n:Resource {title:{title}}) RETURN n ")
     Resource findByTitle(@Param("title") String title);
+
+    @Query("MATCH (n) WHERE id(n)= {id} RETURN n")
+    Resource findById(@Param("id") Long id);
 }

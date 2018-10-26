@@ -1,0 +1,1948 @@
+{
+  "swagger": "2.0",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "host": "serverlessrepo.amazonaws.com",
+  "basePath": "/",
+  "x-hasEquivalentPaths": true,
+  "info": {
+    "contact": {
+      "email": "mike.ralphson@gmail.com",
+      "name": "Mike Ralphson",
+      "url": "https://github.com/mermade/aws2openapi",
+      "x-twitter": "PermittedSoc"
+    },
+    "description": "<p>The AWS Serverless Application Repository makes it easy for developers and enterprises to quickly find\n and deploy serverless applications in the AWS Cloud. For more information about serverless applications,\n see Serverless Computing and Applications on the AWS website.</p><p>The AWS Serverless Application Repository is deeply integrated with the AWS Lambda console, so that developers of \n all levels can get started with serverless computing without needing to learn anything new. You can use category \n keywords to browse for applications such as web and mobile backends, data processing applications, or chatbots. \n You can also search for applications by name, publisher, or event source. To use an application, you simply choose it, \n configure any required fields, and deploy it with a few clicks. </p><p>You can also easily publish applications, sharing them publicly with the community at large, or privately\n within your team or across your organization. To publish a serverless application (or app), you can use the\n AWS Management Console, AWS Command Line Interface (AWS CLI), or AWS SDKs to upload the code. Along with the\n code, you upload a simple manifest file, also known as the AWS Serverless Application Model (AWS SAM) template.\n For more information about AWS SAM, see AWS Serverless Application Model (AWS SAM) on the AWS Labs\n GitHub repository.</p><p>The AWS Serverless Application Repository Developer Guide contains more information about the two developer\n experiences available:</p><ul>\n <li>\n <p>Consuming Applications – Browse for applications and view information about them, including\n source code and readme files. Also install, configure, and deploy applications of your choosing. </p>\n <p>Publishing Applications – Configure and upload applications to make them available to other\n developers, and publish new versions of applications. </p>\n </li>\n </ul>",
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/"
+    },
+    "termsOfService": "https://aws.amazon.com/service-terms/",
+    "title": "AWSServerlessApplicationRepository",
+    "version": "2017-09-08",
+    "x-apiClientRegistration": {
+      "url": "https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct"
+    },
+    "x-apisguru-categories": [
+      "cloud"
+    ],
+    "x-logo": {
+      "backgroundColor": "#FFFFFF",
+      "url": "https://api.apis.guru/v2/cache/logo/https_twitter.com_awscloud_profile_image.jpeg"
+    },
+    "x-origin": [
+      {
+        "contentType": "application/json",
+        "converter": {
+          "url": "https://github.com/mermade/aws2openapi",
+          "version": "1.0.0"
+        },
+        "url": "https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/serverlessrepo-2017-09-08.normal.json",
+        "x-apisguru-direct": true
+      }
+    ],
+    "x-preferred": true,
+    "x-providerName": "amazonaws.com",
+    "x-release": "v4",
+    "x-serviceName": "serverlessrepo"
+  },
+  "externalDocs": {
+    "description": "Amazon Web Services documentation",
+    "url": "https://aws.amazon.com/serverlessrepo/"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "hmac": {
+      "description": "Amazon Signature authorization v4",
+      "in": "header",
+      "name": "Authorization",
+      "type": "apiKey",
+      "x-amazon-apigateway-authtype": "awsSigv4"
+    }
+  },
+  "security": [
+    {
+      "hmac": []
+    }
+  ],
+  "parameters": {
+    "Action": {
+      "in": "header",
+      "name": "Action",
+      "required": true,
+      "type": "string"
+    },
+    "Version": {
+      "in": "header",
+      "name": "Version",
+      "required": true,
+      "type": "string"
+    },
+    "X-Amz-Algorithm": {
+      "in": "header",
+      "name": "X-Amz-Algorithm",
+      "required": false,
+      "type": "string"
+    },
+    "X-Amz-Content-Sha256": {
+      "in": "header",
+      "name": "X-Amz-Content-Sha256",
+      "required": false,
+      "type": "string"
+    },
+    "X-Amz-Credential": {
+      "in": "header",
+      "name": "X-Amz-Credential",
+      "required": false,
+      "type": "string"
+    },
+    "X-Amz-Date": {
+      "in": "header",
+      "name": "X-Amz-Date",
+      "required": false,
+      "type": "string"
+    },
+    "X-Amz-Security-Token": {
+      "in": "header",
+      "name": "X-Amz-Security-Token",
+      "required": false,
+      "type": "string"
+    },
+    "X-Amz-Signature": {
+      "in": "header",
+      "name": "X-Amz-Signature",
+      "required": false,
+      "type": "string"
+    },
+    "X-Amz-SignedHeaders": {
+      "in": "header",
+      "name": "X-Amz-SignedHeaders",
+      "required": false,
+      "type": "string"
+    }
+  },
+  "paths": {
+    "/applications": {
+      "get": {
+        "description": "Lists applications owned by the requester.",
+        "operationId": "ListApplications",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListApplicationsRequest"
+            }
+          },
+          {
+            "description": "Pagination limit",
+            "in": "query",
+            "name": "MaxItems",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Pagination token",
+            "in": "query",
+            "name": "NextToken",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListApplicationsResponse"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "482": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "483": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ],
+      "post": {
+        "description": "Creates an application, optionally including an AWS SAM file to create the first application version in the same call.",
+        "operationId": "CreateApplication",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationResponse"
+            }
+          },
+          "480": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "481": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "482": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "483": {
+            "description": "ConflictException",
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "484": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      }
+    },
+    "/applications/{applicationId}": {
+      "delete": {
+        "description": "Deletes the specified application.",
+        "operationId": "DeleteApplication",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteApplicationRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "480": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "481": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "482": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          },
+          "483": {
+            "description": "NotFoundException",
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "484": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "485": {
+            "description": "ConflictException",
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Gets the specified application.",
+        "operationId": "GetApplication",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetApplicationRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetApplicationResponse"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "482": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "483": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "484": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ],
+      "patch": {
+        "description": "Updates the specified application.",
+        "operationId": "UpdateApplication",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateApplicationRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateApplicationResponse"
+            }
+          },
+          "480": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "481": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "482": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          },
+          "483": {
+            "description": "NotFoundException",
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "484": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "485": {
+            "description": "ConflictException",
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          }
+        }
+      }
+    },
+    "/applications/{applicationId}/changesets": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ],
+      "post": {
+        "description": "Creates an AWS CloudFormation change set for the given application.",
+        "operationId": "CreateCloudFormationChangeSet",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateCloudFormationChangeSetRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateCloudFormationChangeSetResponse"
+            }
+          },
+          "480": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "481": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "482": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "483": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      }
+    },
+    "/applications/{applicationId}/policy": {
+      "get": {
+        "description": "Retrieves the policy for the application.",
+        "operationId": "GetApplicationPolicy",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetApplicationPolicyRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetApplicationPolicyResponse"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "482": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "483": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "484": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ],
+      "put": {
+        "description": "Sets the permission policy for an application. See\n <a href=\"https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions\">Application Permissions</a>\n for the list of supported actions that can be used with this operation.",
+        "operationId": "PutApplicationPolicy",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PutApplicationPolicyRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PutApplicationPolicyResponse"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "482": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "483": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "484": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      }
+    },
+    "/applications/{applicationId}/versions": {
+      "get": {
+        "description": "Lists versions for the specified application.",
+        "operationId": "ListApplicationVersions",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListApplicationVersionsRequest"
+            }
+          },
+          {
+            "description": "Pagination limit",
+            "in": "query",
+            "name": "MaxItems",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Pagination token",
+            "in": "query",
+            "name": "NextToken",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListApplicationVersionsResponse"
+            }
+          },
+          "480": {
+            "description": "NotFoundException",
+            "schema": {
+              "$ref": "#/definitions/NotFoundException"
+            }
+          },
+          "481": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "482": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "483": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "484": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ]
+    },
+    "/applications/{applicationId}/versions/{semanticVersion}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/Action"
+        },
+        {
+          "$ref": "#/parameters/Version"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Content-Sha256"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Date"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Algorithm"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Credential"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Security-Token"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-Signature"
+        },
+        {
+          "$ref": "#/parameters/X-Amz-SignedHeaders"
+        }
+      ],
+      "put": {
+        "description": "Creates an application version.",
+        "operationId": "CreateApplicationVersion",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationVersionRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "semanticVersion",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "semanticVersion",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationVersionResponse"
+            }
+          },
+          "480": {
+            "description": "TooManyRequestsException",
+            "schema": {
+              "$ref": "#/definitions/TooManyRequestsException"
+            }
+          },
+          "481": {
+            "description": "BadRequestException",
+            "schema": {
+              "$ref": "#/definitions/BadRequestException"
+            }
+          },
+          "482": {
+            "description": "InternalServerErrorException",
+            "schema": {
+              "$ref": "#/definitions/InternalServerErrorException"
+            }
+          },
+          "483": {
+            "description": "ConflictException",
+            "schema": {
+              "$ref": "#/definitions/ConflictException"
+            }
+          },
+          "484": {
+            "description": "ForbiddenException",
+            "schema": {
+              "$ref": "#/definitions/ForbiddenException"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Application": {
+      "description": "Details about the application.",
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "LicenseUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to a license file of the app that matches the spdxLicenseID value of your application.</p><p>Maximum size 5 MB</p>"
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the application.</p><p>Minimum length=1. Maximum length=140</p><p>Pattern: \"[a-zA-Z0-9\\\\-]+\";</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        },
+        "SpdxLicenseId": {
+          "$ref": "#/definitions/__string",
+          "description": "A valid identifier from https://spdx.org/licenses/."
+        },
+        "Version": {
+          "$ref": "#/definitions/Version",
+          "description": "Version information about the application."
+        }
+      },
+      "required": [
+        "Description",
+        "Author",
+        "ApplicationId",
+        "Name"
+      ],
+      "type": "object"
+    },
+    "ApplicationPage": {
+      "description": "A list of application details.",
+      "properties": {
+        "Applications": {
+          "$ref": "#/definitions/__listOfApplicationSummary",
+          "description": "An array of application summaries."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/__string",
+          "description": "The token to request the next page of results."
+        }
+      },
+      "required": [
+        "Applications"
+      ],
+      "type": "object"
+    },
+    "ApplicationPolicy": {
+      "description": "Policy statements applied to the application.",
+      "properties": {
+        "Statements": {
+          "$ref": "#/definitions/__listOfApplicationPolicyStatement",
+          "description": "An array of policy statements applied to the application."
+        }
+      },
+      "required": [
+        "Statements"
+      ],
+      "type": "object"
+    },
+    "ApplicationPolicyStatement": {
+      "description": "Policy statement applied to the application.",
+      "properties": {
+        "Actions": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "See <a href=\"https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions\">Application Permissions</a> for the list of supported actions."
+        },
+        "Principals": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "An AWS account ID, or * to make the application public."
+        },
+        "StatementId": {
+          "$ref": "#/definitions/__string",
+          "description": "A unique ID for the statement."
+        }
+      },
+      "required": [
+        "Principals",
+        "Actions"
+      ],
+      "type": "object"
+    },
+    "ApplicationSummary": {
+      "description": "Summary of details about the application.",
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the application.</p><p>Minimum length=1. Maximum length=140</p><p>Pattern: \"[a-zA-Z0-9\\\\-]+\";</p>"
+        },
+        "SpdxLicenseId": {
+          "$ref": "#/definitions/__string",
+          "description": "A valid identifier from <a href=\"https://spdx.org/licenses/\">https://spdx.org/licenses/</a>."
+        }
+      },
+      "required": [
+        "Description",
+        "Author",
+        "ApplicationId",
+        "Name"
+      ],
+      "type": "object"
+    },
+    "ApplicationVersionPage": {
+      "description": "A list of version summaries for the application.",
+      "properties": {
+        "NextToken": {
+          "$ref": "#/definitions/__string",
+          "description": "The token to request the next page of results."
+        },
+        "Versions": {
+          "$ref": "#/definitions/__listOfVersionSummary",
+          "description": "An array of version summaries for the application."
+        }
+      },
+      "required": [
+        "Versions"
+      ],
+      "type": "object"
+    },
+    "BadRequestException": {
+      "description": "One of the parameters in the request is invalid.",
+      "properties": {
+        "ErrorCode": {
+          "$ref": "#/definitions/__string",
+          "description": "400"
+        },
+        "Message": {
+          "$ref": "#/definitions/__string",
+          "description": "One of the parameters in the request is invalid."
+        }
+      },
+      "type": "object"
+    },
+    "ChangeSetDetails": {
+      "description": "Details of the change set.",
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "ChangeSetId": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The Amazon Resource Name (ARN) of the change set.</p><p>Length constraints: Minimum length of 1.</p><p>Pattern: ARN:[-a-zA-Z0-9:/]*</p>"
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "StackId": {
+          "$ref": "#/definitions/__string",
+          "description": "The unique ID of the stack."
+        }
+      },
+      "required": [
+        "ChangeSetId",
+        "ApplicationId",
+        "StackId",
+        "SemanticVersion"
+      ],
+      "type": "object"
+    },
+    "ConflictException": {
+      "description": "The resource already exists.",
+      "properties": {
+        "ErrorCode": {
+          "$ref": "#/definitions/__string",
+          "description": "409"
+        },
+        "Message": {
+          "$ref": "#/definitions/__string",
+          "description": "The resource already exists."
+        }
+      },
+      "type": "object"
+    },
+    "CreateApplicationInput": {
+      "description": "Create an application request.",
+      "properties": {
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "LicenseBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A local text file that contains the license of the app that matches the spdxLicenseID value of your application.\n The file is of the format file://&lt;path>/&lt;filename>.</p><p>Maximum size 5 MB</p><p>Note: Only one of licenseBody and licenseUrl can be specified, otherwise an error will result.</p>"
+        },
+        "LicenseUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the S3 object that contains the license of the app that matches the spdxLicenseID value of your application.</p><p>Maximum size 5 MB</p><p>Note: Only one of licenseBody and licenseUrl can be specified, otherwise an error will result.</p>"
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the application that you want to publish.</p><p>Minimum length=1. Maximum length=140</p><p>Pattern: \"[a-zA-Z0-9\\\\-]+\";</p>"
+        },
+        "ReadmeBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A local text readme file in Markdown language that contains a more detailed description of the application and how it works.\n The file is of the format file://&lt;path>/&lt;filename>.</p><p>Maximum size 5 MB</p><p>Note: Only one of readmeBody and readmeUrl can be specified, otherwise an error will result.</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the S3 object in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p><p>Note: Only one of readmeBody and readmeUrl can be specified, otherwise an error will result.</p>"
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "SourceCodeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to a public repository for the source code of your application."
+        },
+        "SpdxLicenseId": {
+          "$ref": "#/definitions/__string",
+          "description": "A valid identifier from <a href=\"https://spdx.org/licenses/\">https://spdx.org/licenses/</a>."
+        },
+        "TemplateBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The local raw packaged AWS SAM template file of your application.\n The file is of the format file://&lt;path>/&lt;filename>.</p><p>Note: Only one of templateBody and templateUrl can be specified, otherwise an error will result.</p>"
+        },
+        "TemplateUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the S3 object cotaining the packaged AWS SAM template of your application.</p><p>Note: Only one of templateBody and templateUrl can be specified, otherwise an error will result.</p>"
+        }
+      },
+      "required": [
+        "Description",
+        "Name",
+        "Author"
+      ],
+      "type": "object"
+    },
+    "CreateApplicationRequest": {
+      "properties": {
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "LicenseBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A local text file that contains the license of the app that matches the spdxLicenseID value of your application.\n The file is of the format file://&lt;path>/&lt;filename>.</p><p>Maximum size 5 MB</p><p>Note: Only one of licenseBody and licenseUrl can be specified, otherwise an error will result.</p>"
+        },
+        "LicenseUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the S3 object that contains the license of the app that matches the spdxLicenseID value of your application.</p><p>Maximum size 5 MB</p><p>Note: Only one of licenseBody and licenseUrl can be specified, otherwise an error will result.</p>"
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the application that you want to publish.</p><p>Minimum length=1. Maximum length=140</p><p>Pattern: \"[a-zA-Z0-9\\\\-]+\";</p>"
+        },
+        "ReadmeBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A local text readme file in Markdown language that contains a more detailed description of the application and how it works.\n The file is of the format file://&lt;path>/&lt;filename>.</p><p>Maximum size 5 MB</p><p>Note: Only one of readmeBody and readmeUrl can be specified, otherwise an error will result.</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the S3 object in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p><p>Note: Only one of readmeBody and readmeUrl can be specified, otherwise an error will result.</p>"
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "SourceCodeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to a public repository for the source code of your application."
+        },
+        "SpdxLicenseId": {
+          "$ref": "#/definitions/__string",
+          "description": "A valid identifier from <a href=\"https://spdx.org/licenses/\">https://spdx.org/licenses/</a>."
+        },
+        "TemplateBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The local raw packaged AWS SAM template file of your application.\n The file is of the format file://&lt;path>/&lt;filename>.</p><p>Note: Only one of templateBody and templateUrl can be specified, otherwise an error will result.</p>"
+        },
+        "TemplateUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the S3 object cotaining the packaged AWS SAM template of your application.</p><p>Note: Only one of templateBody and templateUrl can be specified, otherwise an error will result.</p>"
+        }
+      },
+      "required": [
+        "Description",
+        "Name",
+        "Author"
+      ],
+      "type": "object"
+    },
+    "CreateApplicationResponse": {
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "LicenseUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to a license file of the app that matches the spdxLicenseID value of your application.</p><p>Maximum size 5 MB</p>"
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the application.</p><p>Minimum length=1. Maximum length=140</p><p>Pattern: \"[a-zA-Z0-9\\\\-]+\";</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        },
+        "SpdxLicenseId": {
+          "$ref": "#/definitions/__string",
+          "description": "A valid identifier from https://spdx.org/licenses/."
+        },
+        "Version": {
+          "$ref": "#/definitions/Version",
+          "description": "Version information about the application."
+        }
+      },
+      "type": "object"
+    },
+    "CreateApplicationVersionInput": {
+      "description": "Create a version request.",
+      "properties": {
+        "SourceCodeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to a public repository for the source code of your application."
+        },
+        "TemplateBody": {
+          "$ref": "#/definitions/__string",
+          "description": "The raw packaged AWS SAM template of your application."
+        },
+        "TemplateUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to the packaged AWS SAM template of your application."
+        }
+      },
+      "type": "object"
+    },
+    "CreateApplicationVersionRequest": {
+      "properties": {
+        "SourceCodeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to a public repository for the source code of your application."
+        },
+        "TemplateBody": {
+          "$ref": "#/definitions/__string",
+          "description": "The raw packaged AWS SAM template of your application."
+        },
+        "TemplateUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to the packaged AWS SAM template of your application."
+        }
+      },
+      "type": "object"
+    },
+    "CreateApplicationVersionResponse": {
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "ParameterDefinitions": {
+          "$ref": "#/definitions/__listOfParameterDefinition",
+          "description": "An array of parameter types supported by the application."
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "SourceCodeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to a public repository for the source code of your application."
+        },
+        "TemplateUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to the packaged AWS SAM template of your application."
+        }
+      },
+      "type": "object"
+    },
+    "CreateCloudFormationChangeSetInput": {
+      "description": "Create an application change set request.",
+      "properties": {
+        "ParameterOverrides": {
+          "$ref": "#/definitions/__listOfParameterValue",
+          "description": "A list of parameter values for the parameters of the application."
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "StackName": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name or the unique ID of the stack for which you are creating a change set. AWS CloudFormation generates\n the change set by comparing this stack's information with the information that you submit, such as a modified\n template or different parameter input values. </p><p>Constraints: Minimum length of 1.</p><p>Pattern: ([a-zA-Z][-a-zA-Z0-9]*)|(arn:\\b(aws|aws-us-gov|aws-cn)\\b:[-a-zA-Z0-9:/._+]*)</p>"
+        }
+      },
+      "required": [
+        "StackName"
+      ],
+      "type": "object"
+    },
+    "CreateCloudFormationChangeSetRequest": {
+      "properties": {
+        "ParameterOverrides": {
+          "$ref": "#/definitions/__listOfParameterValue",
+          "description": "A list of parameter values for the parameters of the application."
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "StackName": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name or the unique ID of the stack for which you are creating a change set. AWS CloudFormation generates\n the change set by comparing this stack's information with the information that you submit, such as a modified\n template or different parameter input values. </p><p>Constraints: Minimum length of 1.</p><p>Pattern: ([a-zA-Z][-a-zA-Z0-9]*)|(arn:\\b(aws|aws-us-gov|aws-cn)\\b:[-a-zA-Z0-9:/._+]*)</p>"
+        }
+      },
+      "required": [
+        "StackName"
+      ],
+      "type": "object"
+    },
+    "CreateCloudFormationChangeSetResponse": {
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "ChangeSetId": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The Amazon Resource Name (ARN) of the change set.</p><p>Length constraints: Minimum length of 1.</p><p>Pattern: ARN:[-a-zA-Z0-9:/]*</p>"
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "StackId": {
+          "$ref": "#/definitions/__string",
+          "description": "The unique ID of the stack."
+        }
+      },
+      "type": "object"
+    },
+    "DeleteApplicationRequest": {
+      "properties": {},
+      "type": "object"
+    },
+    "ForbiddenException": {
+      "description": "The client is not authenticated.",
+      "properties": {
+        "ErrorCode": {
+          "$ref": "#/definitions/__string",
+          "description": "403"
+        },
+        "Message": {
+          "$ref": "#/definitions/__string",
+          "description": "The client is not authenticated."
+        }
+      },
+      "type": "object"
+    },
+    "GetApplicationPolicyRequest": {
+      "properties": {},
+      "type": "object"
+    },
+    "GetApplicationPolicyResponse": {
+      "properties": {
+        "Statements": {
+          "$ref": "#/definitions/__listOfApplicationPolicyStatement",
+          "description": "An array of policy statements applied to the application."
+        }
+      },
+      "type": "object"
+    },
+    "GetApplicationRequest": {
+      "properties": {},
+      "type": "object"
+    },
+    "GetApplicationResponse": {
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "LicenseUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to a license file of the app that matches the spdxLicenseID value of your application.</p><p>Maximum size 5 MB</p>"
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the application.</p><p>Minimum length=1. Maximum length=140</p><p>Pattern: \"[a-zA-Z0-9\\\\-]+\";</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        },
+        "SpdxLicenseId": {
+          "$ref": "#/definitions/__string",
+          "description": "A valid identifier from https://spdx.org/licenses/."
+        },
+        "Version": {
+          "$ref": "#/definitions/Version",
+          "description": "Version information about the application."
+        }
+      },
+      "type": "object"
+    },
+    "InternalServerErrorException": {
+      "description": "The AWS Serverless Application Repository service encountered an internal error.",
+      "properties": {
+        "ErrorCode": {
+          "$ref": "#/definitions/__string",
+          "description": "500"
+        },
+        "Message": {
+          "$ref": "#/definitions/__string",
+          "description": "The AWS Serverless Application Repository service encountered an internal error."
+        }
+      },
+      "type": "object"
+    },
+    "ListApplicationVersionsRequest": {
+      "properties": {},
+      "type": "object"
+    },
+    "ListApplicationVersionsResponse": {
+      "properties": {
+        "NextToken": {
+          "$ref": "#/definitions/__string",
+          "description": "The token to request the next page of results."
+        },
+        "Versions": {
+          "$ref": "#/definitions/__listOfVersionSummary",
+          "description": "An array of version summaries for the application."
+        }
+      },
+      "type": "object"
+    },
+    "ListApplicationsRequest": {
+      "properties": {},
+      "type": "object"
+    },
+    "ListApplicationsResponse": {
+      "properties": {
+        "Applications": {
+          "$ref": "#/definitions/__listOfApplicationSummary",
+          "description": "An array of application summaries."
+        },
+        "NextToken": {
+          "$ref": "#/definitions/__string",
+          "description": "The token to request the next page of results."
+        }
+      },
+      "type": "object"
+    },
+    "MaxItems": {
+      "maximum": 100,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "NotFoundException": {
+      "description": "The resource (for example, an access policy statement) specified in the request doesn't exist.",
+      "properties": {
+        "ErrorCode": {
+          "$ref": "#/definitions/__string",
+          "description": "404"
+        },
+        "Message": {
+          "$ref": "#/definitions/__string",
+          "description": "The resource (for example, an access policy statement) specified in the request doesn't exist."
+        }
+      },
+      "type": "object"
+    },
+    "ParameterDefinition": {
+      "description": "Parameters supported by the application.",
+      "properties": {
+        "AllowedPattern": {
+          "$ref": "#/definitions/__string",
+          "description": "A regular expression that represents the patterns to allow for String types."
+        },
+        "AllowedValues": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "An array containing the list of values allowed for the parameter."
+        },
+        "ConstraintDescription": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A string that explains a constraint when the constraint is violated. For example, without a constraint description,\n a parameter that has an allowed pattern of [A-Za-z0-9]+ displays the following error message when the user\n specifies an invalid value:</p><p>\n Malformed input-Parameter MyParameter must match pattern [A-Za-z0-9]+\n </p><p>By adding a constraint description, such as \"must contain only uppercase and lowercase letters and numbers,\" you can display\n the following customized error message:</p><p>\n Malformed input-Parameter MyParameter must contain only uppercase and lowercase letters and numbers.\n </p>"
+        },
+        "DefaultValue": {
+          "$ref": "#/definitions/__string",
+          "description": "A value of the appropriate type for the template to use if no value is specified when a stack is created.\n If you define constraints for the parameter, you must specify a value that adheres to those constraints."
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "A string of up to 4,000 characters that describes the parameter."
+        },
+        "MaxLength": {
+          "$ref": "#/definitions/__integer",
+          "description": "An integer value that determines the largest number of characters that you want to allow for String types."
+        },
+        "MaxValue": {
+          "$ref": "#/definitions/__integer",
+          "description": "A numeric value that determines the largest numeric value that you want to allow for Number types."
+        },
+        "MinLength": {
+          "$ref": "#/definitions/__integer",
+          "description": "An integer value that determines the smallest number of characters that you want to allow for String types."
+        },
+        "MinValue": {
+          "$ref": "#/definitions/__integer",
+          "description": "A numeric value that determines the smallest numeric value that you want to allow for Number types."
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "The name of the parameter."
+        },
+        "NoEcho": {
+          "$ref": "#/definitions/__boolean",
+          "description": "Whether to mask the parameter value whenever anyone makes a call that describes the stack. If you set the\n value to true, the parameter value is masked with asterisks (*****)."
+        },
+        "ReferencedByResources": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "A list of AWS SAM resources that use this parameter."
+        },
+        "Type": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The type of the parameter.</p><p>Valid values: String | Number | List&lt;Number> | CommaDelimitedList\n </p><p>\n String: A literal string.</p><p>For example, users can specify \"MyUserName\".</p><p>\n Number: An integer or float. AWS CloudFormation validates the parameter value as a number. However, when you use the\n parameter elsewhere in your template (for example, by using the Ref intrinsic function), the parameter value becomes a string.</p><p>For example, users might specify \"8888\".</p><p>\n List&lt;Number>: An array of integers or floats that are separated by commas. AWS CloudFormation validates the parameter value as numbers. However, when\n you use the parameter elsewhere in your template (for example, by using the Ref intrinsic function), the parameter value becomes a list of strings.</p><p>For example, users might specify \"80,20\", and then Ref results in [\"80\",\"20\"].</p><p>\n CommaDelimitedList: An array of literal strings that are separated by commas. The total number of strings should be one more than the total number of commas.\n Also, each member string is space-trimmed.</p><p>For example, users might specify \"test,dev,prod\", and then Ref results in [\"test\",\"dev\",\"prod\"].</p>"
+        }
+      },
+      "required": [
+        "ReferencedByResources",
+        "Name"
+      ],
+      "type": "object"
+    },
+    "ParameterValue": {
+      "description": "Parameter value of the application.",
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS CloudFormation\n uses the default value that is specified in your template."
+        },
+        "Value": {
+          "$ref": "#/definitions/__string",
+          "description": "The input value associated with the parameter."
+        }
+      },
+      "required": [
+        "Value",
+        "Name"
+      ],
+      "type": "object"
+    },
+    "PutApplicationPolicyRequest": {
+      "properties": {
+        "Statements": {
+          "$ref": "#/definitions/__listOfApplicationPolicyStatement",
+          "description": "An array of policy statements applied to the application."
+        }
+      },
+      "required": [
+        "Statements"
+      ],
+      "type": "object"
+    },
+    "PutApplicationPolicyResponse": {
+      "properties": {
+        "Statements": {
+          "$ref": "#/definitions/__listOfApplicationPolicyStatement",
+          "description": "An array of policy statements applied to the application."
+        }
+      },
+      "type": "object"
+    },
+    "TooManyRequestsException": {
+      "description": "The client is sending more than the allowed number of requests per unit of time.",
+      "properties": {
+        "ErrorCode": {
+          "$ref": "#/definitions/__string",
+          "description": "429"
+        },
+        "Message": {
+          "$ref": "#/definitions/__string",
+          "description": "The client is sending more than the allowed number of requests per unit of time."
+        }
+      },
+      "type": "object"
+    },
+    "UpdateApplicationInput": {
+      "description": "Update the application request.",
+      "properties": {
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "ReadmeBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A text readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        }
+      },
+      "type": "object"
+    },
+    "UpdateApplicationRequest": {
+      "properties": {
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "ReadmeBody": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A text readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        }
+      },
+      "type": "object"
+    },
+    "UpdateApplicationResponse": {
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "Author": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the author publishing the app.</p><p>Minimum length=1. Maximum length=127.</p><p>Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";</p>"
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "Description": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The description of the application.</p><p>Minimum length=1. Maximum length=256</p>"
+        },
+        "HomePageUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A URL with more information about the application, for example\n the location of your GitHub repository for the application."
+        },
+        "Labels": {
+          "$ref": "#/definitions/__listOf__string",
+          "description": "<p>Labels to improve discovery of apps in search results.</p><p>Minimum length=1. Maximum length=127. Maximum number of labels: 10</p><p>Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\/@]+$\";</p>"
+        },
+        "LicenseUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to a license file of the app that matches the spdxLicenseID value of your application.</p><p>Maximum size 5 MB</p>"
+        },
+        "Name": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The name of the application.</p><p>Minimum length=1. Maximum length=140</p><p>Pattern: \"[a-zA-Z0-9\\\\-]+\";</p>"
+        },
+        "ReadmeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>A link to the readme file in Markdown language that contains a more detailed description of the application and how it works.</p><p>Maximum size 5 MB</p>"
+        },
+        "SpdxLicenseId": {
+          "$ref": "#/definitions/__string",
+          "description": "A valid identifier from https://spdx.org/licenses/."
+        },
+        "Version": {
+          "$ref": "#/definitions/Version",
+          "description": "Version information about the application."
+        }
+      },
+      "type": "object"
+    },
+    "Version": {
+      "description": "Application version details.",
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "ParameterDefinitions": {
+          "$ref": "#/definitions/__listOfParameterDefinition",
+          "description": "An array of parameter types supported by the application."
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "SourceCodeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to a public repository for the source code of your application."
+        },
+        "TemplateUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to the packaged AWS SAM template of your application."
+        }
+      },
+      "required": [
+        "TemplateUrl",
+        "ParameterDefinitions",
+        "CreationTime",
+        "ApplicationId",
+        "SemanticVersion"
+      ],
+      "type": "object"
+    },
+    "VersionSummary": {
+      "description": "An application version summary.",
+      "properties": {
+        "ApplicationId": {
+          "$ref": "#/definitions/__string",
+          "description": "The application Amazon Resource Name (ARN)."
+        },
+        "CreationTime": {
+          "$ref": "#/definitions/__string",
+          "description": "The date and time this resource was created."
+        },
+        "SemanticVersion": {
+          "$ref": "#/definitions/__string",
+          "description": "<p>The semantic version of the application:</p><p>\n <a href=\"https://semver.org/\">https://semver.org/</a>\n </p>"
+        },
+        "SourceCodeUrl": {
+          "$ref": "#/definitions/__string",
+          "description": "A link to a public repository for the source code of your application."
+        }
+      },
+      "required": [
+        "CreationTime",
+        "ApplicationId",
+        "SemanticVersion"
+      ],
+      "type": "object"
+    },
+    "__boolean": {
+      "type": "boolean"
+    },
+    "__double": {
+      "format": "double",
+      "type": "number"
+    },
+    "__integer": {
+      "type": "integer"
+    },
+    "__listOfApplicationPolicyStatement": {
+      "items": {
+        "$ref": "#/definitions/ApplicationPolicyStatement"
+      },
+      "type": "array"
+    },
+    "__listOfApplicationSummary": {
+      "items": {
+        "$ref": "#/definitions/ApplicationSummary"
+      },
+      "type": "array"
+    },
+    "__listOfParameterDefinition": {
+      "items": {
+        "$ref": "#/definitions/ParameterDefinition"
+      },
+      "type": "array"
+    },
+    "__listOfParameterValue": {
+      "items": {
+        "$ref": "#/definitions/ParameterValue"
+      },
+      "type": "array"
+    },
+    "__listOfVersionSummary": {
+      "items": {
+        "$ref": "#/definitions/VersionSummary"
+      },
+      "type": "array"
+    },
+    "__listOf__string": {
+      "items": {
+        "$ref": "#/definitions/__string"
+      },
+      "type": "array"
+    },
+    "__long": {
+      "type": "integer"
+    },
+    "__string": {
+      "type": "string"
+    }
+  }
+}
