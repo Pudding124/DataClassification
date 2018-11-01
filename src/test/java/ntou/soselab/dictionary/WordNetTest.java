@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 @RunWith(SpringRunner.class)
@@ -22,16 +23,27 @@ public class WordNetTest {
 
     @Test
     public void wordnetTest() {
+        ArrayList<String> wordSum = new ArrayList<>();
         // 查詢上義詞
-        Hashtable<String, Double> testWord1 = wordNetExpansion.getHypernymsByNounOrVerb("dog", POS.NOUN);
-        Hashtable<String, Double> testWord2 = wordNetExpansion.getHyponymsByNounOrVerb("dog", POS.NOUN);
+        Hashtable<String, Double> testWord1 = wordNetExpansion.getHypernymsByNounOrVerb("weather", POS.NOUN);
+        Hashtable<String, Double> testWord2 = wordNetExpansion.getHyponymsByNounOrVerb("weather", POS.NOUN);
 
         for(String str : testWord1.keySet()) {
             log.info("testWord1 --> Word :{} Score :{}", str, testWord1.get(str));
+            if(!wordSum.contains(str)) {
+                wordSum.add(str);
+            }
         }
 
         for(String str : testWord2.keySet()) {
             log.info("testWord2 --> Word :{} Score :{}", str, testWord2.get(str));
+            if(!wordSum.contains(str)) {
+                wordSum.add(str);
+            }
+        }
+
+        for(String str : wordSum) {
+            log.info("wordSum --> Word :{} ", str);
         }
     }
 }

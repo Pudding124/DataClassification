@@ -27,7 +27,7 @@ public class WordNetExpansion {
     private WordnetStemmer wordNetStemming;
     Logger log = LoggerFactory.getLogger(WordNetExpansion.class);
 
-    private String jwnlPropertiesPath = "./src/main/resources/wordnet_config.xml";
+    private String jwnlPropertiesPath = "./src/main/resources/wordnet_config.xml"; // https://github.com/RolandKluge/de.rolandkluge.blog.java.jwnltut/blob/master/src/main/resources/properties.xml.template
     private String wordNetPath = "C:\\Program Files (x86)\\WordNet\\2.1\\dict"; // "/home/mis101bird/WordNet/dict";
 
     private String[] stackOverflowWords = {"entity", "check", "rule", "limit",

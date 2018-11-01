@@ -21,7 +21,7 @@ public class PythonTest {
     @Test
     public void pythonTest() {
         try {
-            word2vec.useWord2vecWithPython("2", "3");
+            word2vec.useWord2vecWithPython("weather,digit,nearline,dai,accord");
         } catch (Exception e) {
             log.info(e.toString());
         }

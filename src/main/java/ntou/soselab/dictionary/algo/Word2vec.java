@@ -11,9 +11,9 @@ public class Word2vec {
     Logger log = LoggerFactory.getLogger(Word2vec.class);
 
     // windowns 10 connect python
-    public void useWord2vecWithPython(String str, String str2) throws IOException, InterruptedException {
+    public void useWord2vecWithPython(String str) throws IOException, InterruptedException {
         // String pythonPath = "E://word2vec/main.py";
-        ProcessBuilder pb = new ProcessBuilder("python", "E:/word2vec/main.py", "weather");
+        ProcessBuilder pb = new ProcessBuilder("python", "E:/word2vec/main.py", str);
         pb.redirectErrorStream(true);
         Process p = pb.start();
 
