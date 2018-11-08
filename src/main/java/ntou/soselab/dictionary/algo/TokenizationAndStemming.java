@@ -1,13 +1,17 @@
 package ntou.soselab.dictionary.algo;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.en.PorterStemFilter;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -56,5 +60,47 @@ public class TokenizationAndStemming {
         }
         analyzer.close();
         return builder.toString().trim();
+    }
+
+    public ArrayList<String> applyArrayListOnStemming(ArrayList<String> inputs) {
+
+        HashMap<String, Boolean> repeated = new HashMap<String, Boolean>();
+        ArrayList<String> tokens = new ArrayList<String>();
+        // Define your attribute factory (or use the default) - same between 4.x
+        // and 5.x
+        Analyzer analyzer = new StopAnalyzer();
+        TokenStream tokenStream;
+        try {
+            tokenStream = analyzer.tokenStream("contents",
+                    new StringReader(this.changeDotsToSeperateTerms(this.replaceTagsToNone(String.join(" ", inputs)))));
+            tokenStream.reset();
+
+            // Then process tokens - same between 4.x and 5.x
+            TokenStream stemTerm = new PorterStemFilter(tokenStream);
+            CharTermAttribute attr = stemTerm.addAttribute(CharTermAttribute.class);
+
+            while (stemTerm.incrementToken()) {
+                // Grab the term
+                String term = new String(attr.buffer(), 0, attr.length());
+                if (!repeated.containsKey(term)) {
+                    tokens.add(term);
+                    repeated.put(term, true);
+                }
+            }
+            tokenStream.end();
+            stemTerm.end();
+        } catch (IOException e) {
+            log.error("Error on parsing Tokenization And Stemming", e);
+        }
+        return tokens;
+
+    }
+
+    public String changeDotsToSeperateTerms(String input) {
+        return input.replaceAll("\\.", " ").trim();
+    }
+
+    public String replaceTagsToNone(String input) {
+        return input.replaceAll("<.*?>", " ").trim();
     }
 }

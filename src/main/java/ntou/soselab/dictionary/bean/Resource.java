@@ -15,11 +15,14 @@ public class Resource {
 
     private ArrayList<String> LDA;
 
+    private ArrayList<String> WordNet;
+
     public Resource() {}
 
-    public Resource(String title, ArrayList<String> LDA) {
+    public Resource(String title, ArrayList<String> LDA, ArrayList<String> WordNet) {
         this.title = title;
         this.LDA = LDA;
+        this.WordNet = WordNet;
     }
 
     public Long getId() {
@@ -44,5 +47,13 @@ public class Resource {
 
     public void setLDA(ArrayList<String> LDA) {
         this.LDA = LDA;
+    }
+
+    public ArrayList<String> getWordNet() {
+        return WordNet;
+    }
+
+    public void setWordNet(ArrayList<String> wordNet) {
+        WordNet = wordNet;
     }
 }

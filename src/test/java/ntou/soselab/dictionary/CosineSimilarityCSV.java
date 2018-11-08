@@ -61,6 +61,7 @@ public class CosineSimilarityCSV {
             ArrayList<String> allWord = new ArrayList<>();
             for(Long id : allResourceId) {
                 Resource compareResource = resourceRepository.findById(id);
+
                 for(String str : currentResource.getLDA()){
                     if(!allWord.contains(str)) {
                         allWord.add(str);
@@ -71,6 +72,17 @@ public class CosineSimilarityCSV {
                         allWord.add(str);
                     }
                 }
+                for(String str : currentResource.getWordNet()){
+                    if(!allWord.contains(str)) {
+                        allWord.add(str);
+                    }
+                }
+                for(String str : compareResource.getWordNet()){
+                    if(!allWord.contains(str)) {
+                        allWord.add(str);
+                    }
+                }
+
                 double[] target = new double[allWord.size()];
                 double[] compare = new double[allWord.size()];
                 for(int i = 0;i < allWord.size();i++){

@@ -1,6 +1,7 @@
 package ntou.soselab.dictionary.algo;
 
 import edu.mit.jwi.IDictionary;
+import edu.mit.jwi.item.POS;
 import edu.mit.jwi.morph.WordnetStemmer;
 import net.didion.jwnl.JWNL;
 import net.didion.jwnl.data.IndexWord;
@@ -18,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class WordNetExpansion {
     private IDictionary dict = null;
     private WordnetStemmer wordNetStemming;
     Logger log = LoggerFactory.getLogger(WordNetExpansion.class);
+    TokenizationAndStemming tokenizationAndStemming = new TokenizationAndStemming();
 
     private String jwnlPropertiesPath = "./src/main/resources/wordnet_config.xml"; // https://github.com/RolandKluge/de.rolandkluge.blog.java.jwnltut/blob/master/src/main/resources/properties.xml.template
     private String wordNetPath = "C:\\Program Files (x86)\\WordNet\\2.1\\dict"; // "/home/mis101bird/WordNet/dict";
@@ -302,5 +305,54 @@ public class WordNetExpansion {
         BigDecimal b = new BigDecimal(score);
         double afterRound = b.setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue();
         return afterRound;
+    }
+
+    public ArrayList<String> getWordNetExpansion(ArrayList<String> LDAWord, HashMap<String, String> stemmingAndTermsTable) {
+        ArrayList<String> result = new ArrayList<>();
+        for(String word : LDAWord) {
+            try {
+                // 查詢上義詞
+                Hashtable<String, Double> Hypernyms = getHypernymsByNounOrVerb(word, POS.NOUN);
+                for(String wordExpansion : Hypernyms.keySet()) {
+                    if(!result.contains(wordExpansion)) {
+                        result.add(wordExpansion);
+                    }
+                }
+            } catch(IllegalArgumentException e) {
+                String originWord = stemmingAndTermsTable.get(word);
+                log.info("上義詞無法擴充 stem :{} --> origin :{}", word, originWord);
+                if(originWord != null) {
+                    Hashtable<String, Double> Hypernyms = getHypernymsByNounOrVerb(originWord, POS.NOUN);
+                    for(String wordExpansion : Hypernyms.keySet()) {
+                        if(!result.contains(wordExpansion)) {
+                            result.add(wordExpansion);
+                        }
+                    }
+                }
+            }
+
+            try {
+                // 查詢下義詞
+                Hashtable<String, Double> Hyponyms = getHyponymsByNounOrVerb(word, POS.NOUN);
+                for(String wordExpansion : Hyponyms.keySet()) {
+                    if(!result.contains(wordExpansion)) {
+                        result.add(wordExpansion);
+                    }
+                }
+            } catch(IllegalArgumentException e) {
+                String originWord = stemmingAndTermsTable.get(word);
+                log.info("下義詞無法擴充 stem :{} --> origin :{}", word, originWord);
+                if(originWord != null) {
+                    Hashtable<String, Double> Hyponyms = getHyponymsByNounOrVerb(originWord, POS.NOUN);
+                    for(String wordExpansion : Hyponyms.keySet()) {
+                        if(!result.contains(wordExpansion)) {
+                            result.add(wordExpansion);
+                        }
+                    }
+                }
+            }
+        }
+        result = tokenizationAndStemming.applyArrayListOnStemming(result);
+        return result;
     }
 }

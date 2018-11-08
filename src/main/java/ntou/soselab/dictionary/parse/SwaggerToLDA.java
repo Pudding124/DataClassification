@@ -18,11 +18,9 @@ public class SwaggerToLDA {
 
     TokenizationAndStemming tokenizationAndStemming = new TokenizationAndStemming();
 
-    public ArrayList swaggerParseLDA(String[] swaggerInfo) throws IOException {
+    public ArrayList swaggerParseLDA(String[] swaggerInfo, HashMap<String, String> stemmingAndTermsTable) throws IOException {
 
         LDA lda = new LDA();
-        // For saving key: stemming term --> value: original term
-        HashMap<String, String> stemmingAndTermsTable = new HashMap<String, String>();
         // For filtering out repeated concept in original concept list and wordnet concept list
         HashMap<String, Boolean> filterRepeatedTerm = new HashMap<String, Boolean>();
 
