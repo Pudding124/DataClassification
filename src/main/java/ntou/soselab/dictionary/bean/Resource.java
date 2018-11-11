@@ -13,14 +13,17 @@ public class Resource {
 
     private String title;
 
+    private ArrayList<String> FullText;
+
     private ArrayList<String> LDA;
 
     private ArrayList<String> WordNet;
 
     public Resource() {}
 
-    public Resource(String title, ArrayList<String> LDA, ArrayList<String> WordNet) {
+    public Resource(String title, ArrayList<String> FullText, ArrayList<String> LDA, ArrayList<String> WordNet) {
         this.title = title;
+        this.FullText = FullText;
         this.LDA = LDA;
         this.WordNet = WordNet;
     }
@@ -39,6 +42,14 @@ public class Resource {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public ArrayList<String> getFullText() {
+        return FullText;
+    }
+
+    public void setFullText(ArrayList<String> fullText) {
+        FullText = fullText;
     }
 
     public ArrayList<String> getLDA() {

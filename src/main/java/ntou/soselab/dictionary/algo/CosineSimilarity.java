@@ -28,6 +28,6 @@ public class CosineSimilarity {
         } else {
             return 0.0;
         }
-        return cosineSimilarity*10;
+        return cosineSimilarity;
     }
 }

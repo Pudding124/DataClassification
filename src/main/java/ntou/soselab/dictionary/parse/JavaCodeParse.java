@@ -2,6 +2,7 @@ package ntou.soselab.dictionary.parse;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
@@ -20,6 +21,10 @@ import java.util.regex.Pattern;
 
 public class JavaCodeParse {
 
+    public void getJavaTest() {
+
+    }
+
     public void getJavaMethodUse() throws IOException {
         // creates an input stream for the file to be parsed
         FileInputStream in = new FileInputStream("E:\\STS_Test\\Dictionary\\src\\main\\resources\\CartServiceImpl.java");
@@ -28,9 +33,13 @@ public class JavaCodeParse {
         CompilationUnit cu = JavaParser.parse(in);
 
         // visit and print the methods names
-        cu.accept(new MethodVisitor(), null);
+        // cu.accept(new MethodVisitor(), null);
         // visit and print the class variable
         cu.accept(new ClassVisitor(), null);
+//        for(ImportDeclaration str : cu.getImports()) {
+//            System.out.println("Import :" + str);
+//        }
+
     }
 
     private static class MethodVisitor extends VoidVisitorAdapter<Void> {
@@ -55,7 +64,7 @@ public class JavaCodeParse {
             System.out.println("-----------------------------------------------------");
             for(FieldDeclaration field : n.getFields()) {
                 String content[] = field.getVariables().toString().split("=");
-                System.out.println(content[1].replaceAll("\\p{P}","");
+                System.out.println(content[1].replaceAll("\\p{P}",""));
             }
             super.visit(n, arg);
         }

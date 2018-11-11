@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @RunWith(SpringRunner.class)
@@ -27,6 +28,7 @@ public class GuruLocalFiles {
     public void readGuruFiles(){
         HashMap<String, Double> result = new HashMap<String, Double>();
         File sDocFolder = new File("./src/main/resources/swagger");
+
         for (String serviceFile : sDocFolder.list()) {
             log.info("parse swagger guru file: {}", serviceFile);
             try {
