@@ -1,6 +1,12 @@
 public class A {
-        class B {
-            int number = 1;
-            
+    class B {
+        class C { 
+            class D {
+            }
+            class F {
+            }
         }
     }
+    class E{
+    }
+}

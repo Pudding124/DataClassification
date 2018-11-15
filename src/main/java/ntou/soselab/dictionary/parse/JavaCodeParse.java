@@ -57,10 +57,11 @@ public class JavaCodeParse {
             List<BodyDeclaration> members = type.getMembers();
             for(BodyDeclaration member : members) {
                 if(member.isClassOrInterfaceDeclaration()) {
-                    log.info("Yes is inner class");
+                    log.info("class name :{}", member.asClassOrInterfaceDeclaration().getName());
                     for(MethodDeclaration method : member.asClassOrInterfaceDeclaration().getMethods()) {
                         log.info("Method Name :{}", method.getName());
                     }
+                    VerifyInnerClassAndParse(member.asClassOrInterfaceDeclaration());
                 }
             }
         }
@@ -118,6 +119,19 @@ public class JavaCodeParse {
         }
     }
 
+    public void VerifyInnerClassAndParse(ClassOrInterfaceDeclaration innerClass) {
+        for(BodyDeclaration member : innerClass.getMembers()) {
+            if(member.isClassOrInterfaceDeclaration()) {
+                log.info("class name :{}", member.asClassOrInterfaceDeclaration().getName());
+                for(MethodDeclaration method : member.asClassOrInterfaceDeclaration().getMethods()) {
+                    log.info("inner Method Name :{}", method.getName());
+                }
+                // 遞迴檢查 inner class
+                VerifyInnerClassAndParse(member.asClassOrInterfaceDeclaration());
+            }
+        }
+    }
+
     public boolean compareCode(String[] api, String[] fragmentUri){
         for(String key : api){
             boolean flag = false;
@@ -163,4 +177,3 @@ public class JavaCodeParse {
 //        }
 //    }
 }
-
