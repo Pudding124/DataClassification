@@ -56,7 +56,12 @@ public class JavaCodeParse {
         for(TypeDeclaration type : cu.getTypes()) {
             List<BodyDeclaration> members = type.getMembers();
             for(BodyDeclaration member : members) {
-                if(member.isTypeDeclaration()) log.info("member :{}", member);
+                if(member.isClassOrInterfaceDeclaration()) {
+                    log.info("Yes is inner class");
+                    for(MethodDeclaration method : member.asClassOrInterfaceDeclaration().getMethods()) {
+                        log.info("Method Name :{}", method.getName());
+                    }
+                }
             }
         }
     }
