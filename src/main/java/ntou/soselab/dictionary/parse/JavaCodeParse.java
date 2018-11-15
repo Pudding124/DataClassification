@@ -3,15 +3,22 @@ package ntou.soselab.dictionary.parse;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.BinaryExpr;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.type.TypeParameter;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import ntou.soselab.dictionary.bean.CodeFragment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,62 +26,136 @@ import java.util.regex.Pattern;
 
 public class JavaCodeParse {
 
-    public void getJavaTest() {
+    Logger log = LoggerFactory.getLogger(JavaCodeParse.class);
 
-    }
 
-    public void getJavaMethodUse() throws IOException {
+    static String URI = "";
+
+    CodeFragment codeFragment;
+
+    public void getJavaMethodUse(String uri, String javaDocPath) throws IOException {
+
+        codeFragment = new CodeFragment();
+
+        URI = uri;
         // creates an input stream for the file to be parsed
-        FileInputStream in = new FileInputStream("/home/mingjen/IdeaProjects/DataClassification/src/main/resources/CartServiceImpl.java");
+        FileInputStream in = new FileInputStream(javaDocPath);
 
         // parse it
         CompilationUnit cu = JavaParser.parse(in);
 
-        // visit and print the methods names
-        // cu.accept(new MethodVisitor(), null);
         // visit and print the class variable
-        cu.accept(new ClassVisitor(), null);
+        // cu.accept(new ClassVisitor(), null);
 //        for(ImportDeclaration str : cu.getImports()) {
 //            System.out.println("Import :" + str);
 //        }
-    }
+        ClassVisitor classVisitor = new ClassVisitor();
+        //classVisitor.visit(cu, null);
+        log.info("Match Methods Name :{}", codeFragment.getFragment());
 
-    private static class MethodVisitor extends VoidVisitorAdapter<Void> {
-        @Override
-        public void visit(MethodDeclaration n, Void arg) {
-            /* here you can access the attributes of the method.
-             this method will be called for all methods in this
-             CompilationUnit, including inner class methods */
-            System.out.println(n.getName());
-            System.out.println(n.getBody().toString());
-            System.out.println("-----------------------------------------------------");
-            super.visit(n, arg);
+        for(TypeDeclaration type : cu.getTypes()) {
+            List<BodyDeclaration> members = type.getMembers();
+            for(BodyDeclaration member : members) {
+                if(member.isTypeDeclaration()) log.info("member :{}", member);
+            }
         }
     }
 
-    private static class ClassVisitor extends VoidVisitorAdapter<Void> {
+    class ClassVisitor extends VoidVisitorAdapter<Void> {
         @Override
         public void visit(ClassOrInterfaceDeclaration n, Void arg) {
         /* here you can access the attributes of the method.
          this method will be called for all methods in this
          CompilationUnit, including inner class methods */
-            System.out.println(n.getFields());
-            System.out.println("-----------------------------------------------------");
-
+            //System.out.println(n.getFields());
+            //System.out.println("-----------------------------------------------------");
             // get class variable name and content
             for(FieldDeclaration field : n.getFields()) {
-                System.out.println(field.getVariables());
+                //System.out.println(field.getVariables());
                 for(VariableDeclarator variable : field.getVariables()) {
-                    System.out.println(variable.getName() + " : " + variable.getInitializer().get());
+                    // System.out.println(variable.getName() + " : " + variable.getInitializer().get());
+                    log.info("Variable Name :{}", variable.getName());
+                    String api[] = URI.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+
+                    // 避免抓到空值
+                    if(variable.getInitializer().orElse(null) != null){
+                        String fragmentUri[] = variable.getInitializer().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+
+                        if(compareCode(api, fragmentUri)) {
+                            String variableName = variable.getName().toString();
+                            log.info("Representative Uri :{}", variableName);
+                            for(MethodDeclaration method : n.getMethods()) {
+                                //System.out.println("Name :" + method.getName());
+                                //System.out.println("Body :" + method.getBody().get());
+                                log.info("Method Name :{}", method.getName());
+                                String vName[] = variableName.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+                                String methodBody[] = method.getBody().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+                                if(compareCode(vName, methodBody)) {
+                                    codeFragment.setFragment(method.getName().toString());
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
+            // get class methods
             for(MethodDeclaration method : n.getMethods()) {
-                System.out.println("Name :" + method.getName());
-                System.out.println("Body :" + method.getBody().get());
+                //System.out.println("Name :" + method.getName());
+                //System.out.println("Body :" + method.getBody().get());
+                log.info("Method Name :{}", method.getName());
+                String api[] = URI.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+                String methodBody[] = method.getBody().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+                if(compareCode(api, methodBody)) {
+                    codeFragment.setFragment(method.getName().toString());
+               }
             }
-
-            super.visit(n, arg);
         }
     }
+
+    public boolean compareCode(String[] api, String[] fragmentUri){
+        for(String key : api){
+            boolean flag = false;
+            for(String key1 : fragmentUri){
+                if(key.equals(key1)){
+                    //System.out.println(key);
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                log.info("Miss on:{}", key);
+                return false;
+            }
+        }
+        return true;
+    }
+
+//    private static class ClassVisitor extends VoidVisitorAdapter<Void> {
+//        @Override
+//        public void visit(ClassOrInterfaceDeclaration n, Void arg) {
+//        /* here you can access the attributes of the method.
+//         this method will be called for all methods in this
+//         CompilationUnit, including inner class methods */
+//            System.out.println(n.getFields());
+//            System.out.println("-----------------------------------------------------");
+//
+//            // get class variable name and content
+//            for(FieldDeclaration field : n.getFields()) {
+//                System.out.println(field.getVariables());
+//                for(VariableDeclarator variable : field.getVariables()) {
+//                    System.out.println(variable.getName() + " : " + variable.getInitializer().get());
+//                }
+//            }
+//
+//            // get class methods
+//            for(MethodDeclaration method : n.getMethods()) {
+//                System.out.println("Name :" + method.getName());
+//                System.out.println("Body :" + method.getBody().get());
+//            }
+//
+//            super.visit(n, arg);
+//        }
+//    }
 }
+
