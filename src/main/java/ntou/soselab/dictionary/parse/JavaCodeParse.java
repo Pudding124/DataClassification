@@ -45,26 +45,34 @@ public class JavaCodeParse {
         CompilationUnit cu = JavaParser.parse(in);
 
         // visit and print the class variable
-        // cu.accept(new ClassVisitor(), null);
+//        cu.accept(new ClassVisitor(), null);
+
+        // get java class import
 //        for(ImportDeclaration str : cu.getImports()) {
 //            System.out.println("Import :" + str);
 //        }
+
         ClassVisitor classVisitor = new ClassVisitor();
-        //classVisitor.visit(cu, null);
+        classVisitor.visit(cu, null);
         log.info("Match Methods Name :{}", codeFragment.getFragment());
 
-        for(TypeDeclaration type : cu.getTypes()) {
-            List<BodyDeclaration> members = type.getMembers();
-            for(BodyDeclaration member : members) {
-                if(member.isClassOrInterfaceDeclaration()) {
-                    log.info("class name :{}", member.asClassOrInterfaceDeclaration().getName());
-                    for(MethodDeclaration method : member.asClassOrInterfaceDeclaration().getMethods()) {
-                        log.info("Method Name :{}", method.getName());
-                    }
-                    VerifyInnerClassAndParse(member.asClassOrInterfaceDeclaration());
-                }
-            }
-        }
+
+//        for(TypeDeclaration type : cu.getTypes()) {
+//            // first give all this java doc member
+//            List<BodyDeclaration> members = type.getMembers();
+//            // check all member content
+//            for(BodyDeclaration member : members) {
+//                // if member state equal ClassOrInterfaceDeclaration, and you can identify it which is inner class
+//                if(member.isClassOrInterfaceDeclaration()) {
+//                    log.info("class name :{}", member.asClassOrInterfaceDeclaration().getName());
+//                    // get inner class method
+//                    for(MethodDeclaration method : member.asClassOrInterfaceDeclaration().getMethods()) {
+//                        log.info("Method Name :{}", method.getName());
+//                    }
+//                    VerifyInnerClassAndParse(member.asClassOrInterfaceDeclaration());
+//                }
+//            }
+//        }
     }
 
     class ClassVisitor extends VoidVisitorAdapter<Void> {
@@ -116,9 +124,12 @@ public class JavaCodeParse {
                     codeFragment.setFragment(method.getName().toString());
                }
             }
+
+            VerifyInnerClassAndParse(n);
         }
     }
 
+    // 檢查 inner class 遞迴
     public void VerifyInnerClassAndParse(ClassOrInterfaceDeclaration innerClass) {
         for(BodyDeclaration member : innerClass.getMembers()) {
             if(member.isClassOrInterfaceDeclaration()) {

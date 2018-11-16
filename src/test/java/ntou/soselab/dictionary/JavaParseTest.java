@@ -21,7 +21,7 @@ public class JavaParseTest {
         try {
             // /home/mingjen/IdeaProjects/DataClassification/src/main/resources/javaDoc/LocationAdapter.java
             // E:\STS_Test\Dictionary\src\main\resources\javaDoc
-            javaCodeParse.getJavaMethodUse("https://api.gettyimages.com/v3/search/images", "E:\\STS_Test\\Dictionary\\src\\main\\resources\\javaDoc\\LocationAdapter.java");
+            javaCodeParse.getJavaMethodUse("https://api.gettyimages.com/v3/search/images", "./src/main/resources/javaDoc/LocationAdapter.java");
         } catch (IOException e) {
             e.printStackTrace();
         }
