@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -33,9 +34,14 @@ public class JavaCodeParse {
 
     CodeFragment codeFragment;
 
+    // record all method result
+    ArrayList<String> methodResult;
+
     public void getJavaMethodUse(String uri, String javaDocPath) throws IOException {
 
         codeFragment = new CodeFragment();
+
+        methodResult = new ArrayList<>();
 
         URI = uri;
         // creates an input stream for the file to be parsed
@@ -54,7 +60,8 @@ public class JavaCodeParse {
 
         ClassVisitor classVisitor = new ClassVisitor();
         classVisitor.visit(cu, null);
-        log.info("Match Methods Name :{}", codeFragment.getFragment());
+        // log.info("Match Methods Name :{}", codeFragment.getFragment());
+        log.info("Match Methods Name :{}", methodResult);
 
 
 //        for(TypeDeclaration type : cu.getTypes()) {
@@ -81,68 +88,75 @@ public class JavaCodeParse {
         /* here you can access the attributes of the method.
          this method will be called for all methods in this
          CompilationUnit, including inner class methods */
-            //System.out.println(n.getFields());
-            //System.out.println("-----------------------------------------------------");
-            // get class variable name and content
-            for(FieldDeclaration field : n.getFields()) {
-                //System.out.println(field.getVariables());
-                for(VariableDeclarator variable : field.getVariables()) {
-                    // System.out.println(variable.getName() + " : " + variable.getInitializer().get());
-                    log.info("Variable Name :{}", variable.getName());
-                    String api[] = URI.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
 
-                    // 避免抓到空值
-                    if(variable.getInitializer().orElse(null) != null){
-                        String fragmentUri[] = variable.getInitializer().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+            // find url fragment
+            findAPIUseFragment(n);
+            // verify inner class
+            verifyInnerClassAndParse(n);
+        }
+    }
 
-                        if(compareCode(api, fragmentUri)) {
-                            String variableName = variable.getName().toString();
-                            log.info("Representative Uri :{}", variableName);
-                            for(MethodDeclaration method : n.getMethods()) {
-                                //System.out.println("Name :" + method.getName());
-                                //System.out.println("Body :" + method.getBody().get());
-                                log.info("Method Name :{}", method.getName());
-                                String vName[] = variableName.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
-                                String methodBody[] = method.getBody().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
-                                if(compareCode(vName, methodBody)) {
-                                    codeFragment.setFragment(method.getName().toString());
-                                }
+    public void findAPIUseFragment(ClassOrInterfaceDeclaration n) {
+        // get class variable name and content
+        for(FieldDeclaration field : n.getFields()) {
+            //System.out.println(field.getVariables());
+            for(VariableDeclarator variable : field.getVariables()) {
+                // System.out.println(variable.getName() + " : " + variable.getInitializer().get());
+                log.info("Variable Name :{}", variable.getName());
+                String api[] = URI.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+
+                // 避免抓到空值
+                if(variable.getInitializer().orElse(null) != null){
+                    String fragmentUri[] = variable.getInitializer().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+
+                    if(precisionCompareCode(api, fragmentUri)) {
+                        String variableName = variable.getName().toString();
+                        log.info("Representative Uri :{}", variableName);
+                        for(MethodDeclaration method : n.getMethods()) {
+                            //System.out.println("Name :" + method.getName());
+                            //System.out.println("Body :" + method.getBody().get());
+                            log.info("Search Representative Method Name :{}", method.getName());
+                            String vName[] = variableName.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+                            String methodBody[] = method.getBody().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+                            // 比對 variable api
+                            if(compareCode(vName, methodBody)) {
+                                // codeFragment.setFragment(method.getName().toString());
+                                methodResult.add(method.getName().toString());
                             }
                         }
                     }
                 }
             }
+        }
 
-            // get class methods
-            for(MethodDeclaration method : n.getMethods()) {
-                //System.out.println("Name :" + method.getName());
-                //System.out.println("Body :" + method.getBody().get());
-                log.info("Method Name :{}", method.getName());
-                String api[] = URI.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
-                String methodBody[] = method.getBody().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
-                if(compareCode(api, methodBody)) {
-                    codeFragment.setFragment(method.getName().toString());
-               }
+        // get class methods
+        for(MethodDeclaration method : n.getMethods()) {
+            //System.out.println("Name :" + method.getName());
+            //System.out.println("Body :" + method.getBody().get());
+            log.info("Method Name :{}", method.getName());
+            String api[] = URI.replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+            String methodBody[] = method.getBody().get().toString().replaceAll("[\\pP\\p{Punct}]"," ").split(" ");
+            if(precisionCompareCode(api, methodBody)) {
+                // codeFragment.setFragment(method.getName().toString());
+                methodResult.add(method.getName().toString());
             }
-
-            VerifyInnerClassAndParse(n);
         }
     }
 
     // 檢查 inner class 遞迴
-    public void VerifyInnerClassAndParse(ClassOrInterfaceDeclaration innerClass) {
+    public void verifyInnerClassAndParse(ClassOrInterfaceDeclaration innerClass) {
         for(BodyDeclaration member : innerClass.getMembers()) {
             if(member.isClassOrInterfaceDeclaration()) {
-                log.info("class name :{}", member.asClassOrInterfaceDeclaration().getName());
-                for(MethodDeclaration method : member.asClassOrInterfaceDeclaration().getMethods()) {
-                    log.info("inner Method Name :{}", method.getName());
-                }
+                log.info("inner class name :{}", member.asClassOrInterfaceDeclaration().getName());
+                // 再次尋找 api fragment
+                findAPIUseFragment(member.asClassOrInterfaceDeclaration());
                 // 遞迴檢查 inner class
-                VerifyInnerClassAndParse(member.asClassOrInterfaceDeclaration());
+                verifyInnerClassAndParse(member.asClassOrInterfaceDeclaration());
             }
         }
     }
 
+    // 當 variables 變數是名稱時 比對
     public boolean compareCode(String[] api, String[] fragmentUri){
         for(String key : api){
             boolean flag = false;
@@ -155,10 +169,55 @@ public class JavaCodeParse {
             }
             if(!flag){
                 log.info("Miss on:{}", key);
-                return false;
+                // 避免 api 本身是用 http , 我們檢查是用 https
+                if(key.equals("https")) {
+                    for(String key1 : fragmentUri){
+                        if(key.equals("http")){
+                            break;
+                        }
+                    }
+                }else if(key.equals("http")) {
+                    for(String key1 : fragmentUri){
+                        if(key.equals("https")){
+                            break;
+                        }
+                    }
+                }else {
+                    return false;
+                }
             }
         }
         return true;
+    }
+
+    public boolean precisionCompareCode(String[] api, String[] fragmentUri) {
+        for(int i = 0;i < fragmentUri.length;i++) {
+            // 考慮 API 不一定用 http or https
+            if(fragmentUri[i].equals("http") || fragmentUri[i].equals("https")) {
+                int offset = i;
+                for(int j = 1;j < api.length;j++) {
+                    int count = 0;
+                    while(++offset < fragmentUri.length) {
+                        if(count == 2) break;
+                        if(!fragmentUri[offset].equals(api[j])) {
+                            count++;
+                        }else if(fragmentUri[offset].equals(api[j])) {
+                            // 比到最後一個 api token 皆相等 回傳 true
+                            if(j == api.length-1) {
+                                return true;
+                            }else {
+                                break;
+                            }
+                        }
+                    }
+                    if(count == 2) {
+                        log.info("No Same");
+                        break;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 //    private static class ClassVisitor extends VoidVisitorAdapter<Void> {
