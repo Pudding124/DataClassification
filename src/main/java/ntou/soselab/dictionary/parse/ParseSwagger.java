@@ -30,9 +30,6 @@ public class ParseSwagger {
     ResourceRepository resourceRepository;
 
     @Autowired
-    CalculateLDASimilar calculateLDASimilar;
-
-    @Autowired
     WordNetExpansion wordNetExpansion;
 
     TokenizationAndStemming tokenizationAndStemming = new TokenizationAndStemming();
@@ -64,14 +61,6 @@ public class ParseSwagger {
         // store neo4j information
         Resource resource = new Resource(title, FullText, LDAWord, WordNetWord);
         resourceRepository.save(resource);
-
-        // 計算 Swagger Doc 與所有 Swagger Doc 做餘弦相似度，並相加
-        // calculateLDASimilar.CompareScoreBetweenDoc(title, result);
-    }
-    public String parseSwaggerTitle(String swaggerDoc) {
-        Swagger swagger = new SwaggerParser().parse(swaggerDoc);
-        String title = swagger.getInfo().getTitle();
-        return title;
     }
 
     public ArrayList<String> parseSwaggerAllDescriptionForTFIDFAndStemming(String swaggerDoc) throws IOException {
@@ -264,22 +253,6 @@ public class ParseSwagger {
             }
         }
         return allTokenWord;
-    }
-
-    public String[] parseSwaggerDescriptionToLDA(String swaggerDoc) throws IOException {
-        Swagger swagger = new SwaggerParser().parse(swaggerDoc);
-
-        ArrayList<String> swaggerInfo = new ArrayList<>(); // store swagger parse information
-
-        String title = swagger.getInfo().getTitle();
-        log.info("title :{}", title);
-        String description = swagger.getInfo().getDescription();
-        log.info("description :{}", description);
-
-        if (title != null) swaggerInfo.add(title);
-        if (description != null) swaggerInfo.add(description);
-
-        return swaggerInfo.toArray(new String[0]);
     }
 
     private String replaceTagsToNone(String input) {
